@@ -1,4 +1,4 @@
-import BaseApi from './base.js'
+import BaseApi from '../core/base.js'
 import categoriesApi from './categories.js'
 
 class ProductsApi extends BaseApi {

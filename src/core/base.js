@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/browser'
 import qs from 'querystringify'
-import config from './config.js'
+import config from '../config.js'
 
 export const session = {
   authToken: null,
@@ -34,14 +34,20 @@ export function base_url() {
 
 class BaseApi {
   constructor() {
-    this.base_domain = base_domain()
-    this.base_url = base_url()
+    // this.base_domain = base_domain()
+    // this.base_url = base_url()
     this.lookup_field = 'id'
     this.useCache = {
       list: false,
       get: false,
     }
     this.validateCache = true
+  }
+  get base_domain() {
+    return base_domain()
+  }
+  get base_url() {
+    return base_url()
   }
 
   configCache(cache, timeout) {
@@ -119,7 +125,10 @@ class BaseApi {
         JSON.stringify(json),
         req && req.status
       )
-      Sentry.captureException(e)
+      console.log("Sentry", typeof Sentry, Sentry, Object.keys(Sentry))
+      if (typeof Sentry === 'object' && "captureException" in Sentry) {
+        Sentry.captureException(e)
+      }
       throw e
     }
   }

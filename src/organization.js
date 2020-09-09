@@ -1,4 +1,4 @@
-import BaseApi, { base_url } from './base'
+import BaseApi, { base_url } from './core/base'
 
 class OrganizationApi extends BaseApi {
   constructor() {

@@ -1,6 +1,5 @@
-import BaseApi from './base.js'
 import productsApi from './products.js'
-import $organization from './organization'
+import BaseApi from '../core/base.js'
 
 class CollectionsApi extends BaseApi {
   constructor() {

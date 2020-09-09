@@ -1,8 +1,8 @@
 import * as Sentry from '@sentry/browser'
 import BaseApi, { session } from './base.js'
 // import usersApi from './users.js'
-import staffsApi from './staffs.js'
-import cache from './cache'
+import staffsApi from '../crm/staffs.js'
+import cache from '../utils/cache.js'
 
 export class AuthApi extends BaseApi {
   constructor() {

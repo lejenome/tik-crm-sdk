@@ -1,4 +1,5 @@
-import BaseApi from './base.js'
+import BaseApi from '../core/base.js'
+
 class StaffsApi extends BaseApi {
   constructor() {
     super()

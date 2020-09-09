@@ -1,4 +1,5 @@
-import BaseApi from './base.js'
+import BaseApi from '../core/base.js'
+
 class DeliveryCompaniesApi extends BaseApi {
   constructor() {
     super()
