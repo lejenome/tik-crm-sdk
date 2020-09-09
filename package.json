@@ -2,14 +2,19 @@
   "name": "tik-sdk",
   "version": "2020.09.09",
   "description": "TIK SDK",
-  "author": "TIK (Technology Innovation Network) <contact@tik.tn>",
+  "author": {
+    "name": "TIK (Technology Innovation Network)",
+    "email": "contact@tik.tn",
+    "url": "https://tik.tn"
+  },
   "homepage": "https://tik.tn",
   "private": true,
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "build:webpack": "webpack",
-    "build:babel": "babel index.js -d lib"
+    "build:babel": "babel index.js -d lib",
+    "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --ignore-pattern **/*.min.js ."
   },
   "dependencies": {
     "@sentry/browser": "^5.5.0",

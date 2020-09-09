@@ -1,20 +1,26 @@
 import * as Sentry from '@sentry/browser'
 import qs from 'querystringify'
+import config from './config.js'
 
-export const config = {
+export const session = {
   authToken: null,
   instructorAuthToken: null,
 }
 
 export function base_domain() {
+  return config.API_BASE_URL
+  /*
   if (process.env.NODE_ENV !== 'production') {
     return process.env.API_BASE_URL_DEV || process.env.API_BASE_URL
   } else {
     return process.env.API_BASE_URL
   }
+  */
 }
 
 export function base_url() {
+  return base_domain() + config.API_PREFIX
+  /*
   if (process.env.NODE_ENV !== 'production') {
     return (
       (process.env.API_BASE_URL_DEV || process.env.API_BASE_URL) +
@@ -23,6 +29,7 @@ export function base_url() {
   } else {
     return process.env.API_BASE_URL + (process.env.API_PREFIX || '/api/')
   }
+  */
 }
 
 class BaseApi {
@@ -84,8 +91,8 @@ class BaseApi {
     }
     let req
     try {
-      if (config.authToken) {
-        headers.Authorization = 'Bearer ' + config.authToken
+      if (session.authToken) {
+        headers.Authorization = 'Bearer ' + session.authToken
       }
       req = await fetch(url, {
         method,

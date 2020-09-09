@@ -1,14 +1,16 @@
+import config from './config'
+
 export class Cache {
   has(n) {
     return (
       global.localStorage &&
-      global.localStorage[`${process.env.CACHE_PREFIX}_cache_${n}`]
+      global.localStorage[`${config.CACHE_PREFIX}_cache_${n}`]
     )
   }
 
   del(n) {
     if (global.localStorage) {
-      delete global.localStorage[`${process.env.CACHE_PREFIX}_cache_${n}`]
+      delete global.localStorage[`${config.CACHE_PREFIX}_cache_${n}`]
     }
   }
 
@@ -16,7 +18,7 @@ export class Cache {
     if (use_cache && this.has(n)) {
       try {
         return JSON.parse(
-          global.localStorage[`${process.env.CACHE_PREFIX}_cache_${n}`]
+          global.localStorage[`${config.CACHE_PREFIX}_cache_${n}`]
         )
       } catch (e) {}
     }
@@ -24,7 +26,7 @@ export class Cache {
 
   set(n, res) {
     if (global.localStorage) {
-      const k = `${process.env.CACHE_PREFIX}_cache_${n}`
+      const k = `${config.CACHE_PREFIX}_cache_${n}`
       global.localStorage[k] = JSON.stringify(res)
     }
   }

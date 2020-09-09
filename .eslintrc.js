@@ -2,15 +2,19 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true,
+    // node: true,
+    es2020: true,
   },
   parserOptions: {
     parser: 'babel-eslint',
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      impliedStrict: true,
+    },
   },
-  extends: [
-    'prettier',
-    'plugin:prettier/recommended',
-  ],
+
+  extends: ['prettier', 'plugin:prettier/recommended'],
   plugins: ['prettier'],
   // add your custom rules here
   rules: {
