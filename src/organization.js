@@ -77,7 +77,11 @@ export class Organization {
     }
     ctxt.hide_website = !!(this.data.hide_website || process.env.HIDE_WEBSITE)
     ctxt.modules = (this.data.modules || process.env.MODULES || '').split(',')
-    ctxt.installed_apps = (this.data.installed_apps || process.env.INSTALLED_APPS || '').split(',')
+    ctxt.installed_apps = (
+      this.data.installed_apps ||
+      process.env.INSTALLED_APPS ||
+      ''
+    ).split(',')
     ctxt.delivery_backends = (
       this.data.delivery_backends ||
       process.env.DELIVERY_BACKENDS ||
@@ -173,5 +177,8 @@ export class Organization {
   }
 }
 
-const $organization = new Organization()
+if (!globalThis.TikSdkOrganization) {
+  globalThis.TikSdkOrganization = new Organization()
+}
+const $organization = globalThis.TikSdkOrganization
 export default $organization
