@@ -2,10 +2,13 @@ import * as Sentry from '@sentry/browser'
 import qs from 'querystringify'
 import { base_url, base_domain } from '../config.js'
 
-export const session = {
-  authToken: null,
-  instructorAuthToken: null,
+if (!globalThis.tikSdkSession) {
+  globalThis.tikSdkSession = {
+    authToken: null,
+    instructorAuthToken: null,
+  }
 }
+export const session = globalThis.tikSdkSession
 
 class BaseApi {
   constructor() {
