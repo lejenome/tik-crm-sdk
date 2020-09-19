@@ -165,6 +165,12 @@ export class Organization {
       return `${this.http_protocol}${this.domains.cdn}${this.http_port}${path}`
     else return path
   }
+  hasModule(md) {
+    return this.modules.includes(md)
+  }
+  hasDeliveryBackend(md) {
+    return this.delivery_backends.includes(md)
+  }
 }
 
 const $organization = new Organization()

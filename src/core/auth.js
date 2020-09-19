@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/browser'
-import BaseApi, { session } from './base.js'
+import BaseApi from './base.js'
 // import usersApi from './users.js'
 import staffsApi from '../crm/staffs.js'
 import cache from '../utils/cache.js'
@@ -52,7 +52,7 @@ export class AuthApi extends BaseApi {
   async login(email, password) {
     const resp = await this.http('POST', '', { email, password }, true)
     if (resp.access) {
-      session[this.ns.authToken] = resp.access
+      this.session[this.ns.authToken] = resp.access
       cache.set(this.ns.token, { token: resp.access })
       return true
     } else {
@@ -69,8 +69,8 @@ export class AuthApi extends BaseApi {
         resp = resp && resp.code !== 'token_not_valid'
       }
       if (resp) {
-        session[this.ns.authToken] = token.token
-        console.log(session)
+        this.session[this.ns.authToken] = token.token
+        console.log(this.session)
         return true
       }
     }
@@ -80,7 +80,7 @@ export class AuthApi extends BaseApi {
 
   async logout() {
     this.me = {}
-    session[this.ns.authToken] = null
+    this.session[this.ns.authToken] = null
     cache.del(this.ns.token)
     cache.del(this.ns.me)
     Sentry.configureScope((scope) => {

@@ -8,7 +8,6 @@ if (!globalThis.tikSdkSession) {
     instructorAuthToken: null,
   }
 }
-export const session = globalThis.tikSdkSession
 
 class BaseApi {
   constructor() {
@@ -26,6 +25,10 @@ class BaseApi {
 
   get base_url() {
     return base_url()
+  }
+
+  get session() {
+    return globalThis.tikSdkSession
   }
 
   configCache(cache, timeout) {
@@ -74,8 +77,8 @@ class BaseApi {
     }
     console.log(method, path, json || '')
     try {
-      if (session.authToken) {
-        headers.Authorization = 'Bearer ' + session.authToken
+      if (this.session.authToken) {
+        headers.Authorization = 'Bearer ' + this.session.authToken
       }
       req = await fetch(url, {
         method,
