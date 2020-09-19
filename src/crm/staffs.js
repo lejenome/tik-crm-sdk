@@ -30,6 +30,7 @@ class StaffsApi extends BaseApi {
   }
 
   toObj(o) {
+    if (!o || o.code === 'user_not_found') return null
     const ALL_ROLES = [
       'admin',
       'manager',

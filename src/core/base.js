@@ -1,41 +1,14 @@
 import * as Sentry from '@sentry/browser'
 import qs from 'querystringify'
-import config from '../config.js'
+import { base_url, base_domain } from '../config.js'
 
 export const session = {
   authToken: null,
   instructorAuthToken: null,
 }
 
-export function base_domain() {
-  return config.API_BASE_URL
-  /*
-  if (process.env.NODE_ENV !== 'production') {
-    return process.env.API_BASE_URL_DEV || process.env.API_BASE_URL
-  } else {
-    return process.env.API_BASE_URL
-  }
-  */
-}
-
-export function base_url() {
-  return base_domain() + config.API_PREFIX
-  /*
-  if (process.env.NODE_ENV !== 'production') {
-    return (
-      (process.env.API_BASE_URL_DEV || process.env.API_BASE_URL) +
-      (process.env.API_PREFIX_DEV || process.env.API_PREFIX || '/api/')
-    )
-  } else {
-    return process.env.API_BASE_URL + (process.env.API_PREFIX || '/api/')
-  }
-  */
-}
-
 class BaseApi {
   constructor() {
-    // this.base_domain = base_domain()
-    // this.base_url = base_url()
     this.lookup_field = 'id'
     this.useCache = {
       list: false,
@@ -43,9 +16,11 @@ class BaseApi {
     }
     this.validateCache = true
   }
+
   get base_domain() {
     return base_domain()
   }
+
   get base_url() {
     return base_url()
   }
@@ -70,7 +45,12 @@ class BaseApi {
       path = `${this.resource}`
     }
     let headers = {}
-    if (json) {
+    let url = `${this.base_url}${path}/`
+    let req
+    if (json && method === 'GET') {
+      url += qs.stringify(json, true)
+      json = null
+    } else if (json) {
       if (Object.values(json).some((v) => v instanceof File)) {
         const data = new FormData()
         for (let [k, v] of Object.entries(json)) {
@@ -90,12 +70,6 @@ class BaseApi {
       json = undefined
     }
     console.log(method, path, json || '')
-    let url = `${this.base_url}${path}/`
-    if (json && method === 'GET') {
-      url += qs.stringify(json, true)
-      json = null
-    }
-    let req
     try {
       if (session.authToken) {
         headers.Authorization = 'Bearer ' + session.authToken
@@ -125,8 +99,8 @@ class BaseApi {
         JSON.stringify(json),
         req && req.status
       )
-      console.log("Sentry", typeof Sentry, Sentry, Object.keys(Sentry))
-      if (typeof Sentry === 'object' && "captureException" in Sentry) {
+      console.log('Sentry', typeof Sentry, Sentry, Object.keys(Sentry))
+      if (typeof Sentry === 'object' && 'captureException' in Sentry) {
         Sentry.captureException(e)
       }
       throw e

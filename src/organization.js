@@ -1,4 +1,5 @@
-import BaseApi, { base_url } from './core/base'
+import BaseApi from './core/base'
+import { base_url } from './config'
 
 class OrganizationApi extends BaseApi {
   constructor() {
@@ -17,6 +18,7 @@ class OrganizationApi extends BaseApi {
     object._phone = object.phone
     delete object.cover_file
     delete object.picture_file
+    delete object.background_image_file
     return object
   }
 }
@@ -73,7 +75,9 @@ export class Organization {
     if (!ctxt) {
       ctxt = {}
     }
+    ctxt.hide_website = !!(this.data.hide_website || process.env.HIDE_WEBSITE)
     ctxt.modules = (this.data.modules || process.env.MODULES || '').split(',')
+    ctxt.installed_apps = (this.data.installed_apps || process.env.INSTALLED_APPS || '').split(',')
     ctxt.delivery_backends = (
       this.data.delivery_backends ||
       process.env.DELIVERY_BACKENDS ||
@@ -112,6 +116,7 @@ export class Organization {
       this.data.maintenance_mode || process.env.MAINTENANCE_MODE
     ctxt.maintenance_token =
       this.data.maintenance_token || process.env.MAINTENANCE_TOKEN
+    ctxt.api_base_url = `${this.http_protocol}${this.domains.api}${this.http_port}`
     if (this.domains.webapp) {
       ctxt.base_url = `${this.http_protocol}${this.domains.webapp}`
     } else {

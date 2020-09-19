@@ -10,18 +10,44 @@ const DEFAULT_CONFIG = {
   // LANG: 'fr',
 }
 
-const config = Object.assign({}, DEFAULT_CONFIG)
+if (!globalThis.tikSdkConfig) {
+  globalThis.tikSdkConfig = {}
+}
+
+;(function setDefaultConfig() {
+  for (const k of Object.keys(DEFAULT_CONFIG)) {
+    if (!(k in globalThis.tikSdkConfig)) {
+      globalThis.tikSdkConfig[k] = DEFAULT_CONFIG[k]
+    }
+  }
+})()
 
 export function setConfigValue(k, v) {
-  config[k] = v
+  globalThis.tikSdkConfig[k] = v
 }
 
 export function setConfig(c) {
   for (const k of Object.keys(DEFAULT_CONFIG)) {
     if (k in c) {
-      config[k] = c[k]
+      globalThis.tikSdkConfig[k] = c[k]
     }
   }
 }
 
-export default config
+export function setConfigOrganization($org) {
+  setConfig({
+    API_BASE_URL: $org.api_base_url,
+    API_PREFIX: $org.api_prefix,
+    CACHE_PREFIX: $org.cache_prefix,
+  })
+}
+
+export function base_domain() {
+  return globalThis.tikSdkConfig.API_BASE_URL
+}
+
+export function base_url() {
+  return base_domain() + globalThis.tikSdkConfig.API_PREFIX
+}
+
+export default globalThis.tikSdkConfig
