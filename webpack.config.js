@@ -20,6 +20,18 @@ const libs = [
     library: ['tikSDK', '[name]'],
     filename: 'tik-sdk.[name].js',
   },
+  {
+    name: 'lms',
+    entry: './src/lms/index',
+    library: ['tikSDK', '[name]'],
+    filename: 'tik-sdk.[name].js',
+  },
+  {
+    name: 'cms',
+    entry: './src/cms/index',
+    library: ['tikSDK', '[name]'],
+    filename: 'tik-sdk.[name].js',
+  },
 ]
 
 module.exports = libs.map((lib) => ({

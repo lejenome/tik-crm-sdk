@@ -5,6 +5,8 @@ class ClientsApi extends BaseApi {
     super()
     this.resource = 'clients'
     this.configCache({ list: true }, 5 * 60 * 1000)
+    this.model_name = 'Client'
+    this.model_name_plural = 'Clients'
   }
 
   new() {
@@ -44,6 +46,13 @@ class ClientsApi extends BaseApi {
     return o
   }
 
+  async rapport(id) {
+    return this.http('GET', id + '/rapport')
+  }
+
+  async history(id) {
+    return this.http('GET', id + '/history')
+  }
   typeAchat() {
     return ['gros', 'detail']
   }
@@ -75,14 +84,6 @@ class ClientsApi extends BaseApi {
       'Tunis',
       'Zaghouan',
     ]
-  }
-
-  async rapport(id) {
-    return this.http('GET', id + '/rapport')
-  }
-
-  async history(id) {
-    return this.http('GET', id + '/history')
   }
 }
 
