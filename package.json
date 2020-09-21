@@ -6,6 +6,7 @@
   "browser": "dist/tik-sdk.full.js",
   "types": "types/tik-sdk.full.d.ts",
   "description": "TIK SDK",
+  "license": " GPL-3.0-only",
   "author": {
     "name": "TIK (Technology Innovation Network)",
     "email": "contact@tik.tn",

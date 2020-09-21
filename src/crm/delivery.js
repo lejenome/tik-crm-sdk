@@ -30,6 +30,35 @@ class DeliveryCompaniesApi extends BaseApi {
     return (await this.list()).find((it) => it.is_primary)
   }
 
+  toObj(o) {
+    if (!o.attrs) {
+      o.attrs = {}
+    }
+    this.updateAttrs(o)
+    return o
+  }
+
+  updateAttrs(o) {
+    if (!o.type) {
+      return
+    }
+    const attrs = this.typeAttrs(o.type)
+    for (const attr of attrs) {
+      if (o.attrs[attr.name] === undefined) {
+        o.attrs[attr.name] = attr.default
+      }
+    }
+  }
+
+  typeAttrs(type) {
+    const res = this.types().find((it) => it.ref === type)
+    if (res) {
+      return res.attrs
+    } else {
+      return []
+    }
+  }
+
   types() {
     return [
       {
