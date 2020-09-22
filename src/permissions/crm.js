@@ -1,61 +1,108 @@
-import { register } from './base'
+import { register, hasRole } from './base'
+
+// TODO: support all default permissions for all models (view, add, change/change, delete)
+
+const ALL_ROLES = [
+  'admin',
+  'manager',
+  'finance',
+  'suivi',
+  'commercial',
+  'stock',
+]
+const ACTIVE_ROLES = ['admin', 'manager', 'finance', 'suivi', 'commercial']
+const TOP_ADMINS = ['admin', 'manager']
+const SUIVIS = ['admin', 'manager', 'finance', 'suivi']
+const COMMERCIALS = ['admin', 'manager', 'finance', 'commercial']
+const STOCK_TEAM = ['admin', 'manager', 'stock']
+const POS_TEAM = ['admin', 'manager', 'pos']
+
+/***************************************************/
+/*          Client Model Permissions               */
+/***************************************************/
 
 register('client:view', ($org, user, obj) =>
-  ['admin', 'manager', 'finance'].includes(user.role)
+  hasRole(user, ['admin', 'manager', 'finance'])
+)
+
+register('client:add', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'finance', 'commercial'])
 )
 
 register('client:delete', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
+  hasRole(user, ['admin', 'manager'])
 )
 
-register('store:view', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
+/***************************************************/
+/*          Staff Model Permissions                */
+/***************************************************/
+
+register('staff:view', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'finance'])
 )
 
-register('store:add', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
-)
+register('staff:add', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
 
-register('store:edit', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
-)
+register('staff:edit', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
 
-register('delivery:view', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
-)
+/***************************************************/
+/*          Product Model Permissions              */
+/***************************************************/
 
-register('delivery:add', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
+register('product:view', ($org, user, obj) => true)
+
+register('product:add', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager'])
 )
 
 register('product:edit', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
-)
-
-register('product:add', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
+  hasRole(user, ['admin', 'manager'])
 )
 
 register('product:add-quantity', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
+  hasRole(user, ['admin', 'manager'])
+)
+
+/***************************************************/
+/*          Collection Model Permissions           */
+/***************************************************/
+
+register('collection:view', ($org, user, obj) => $org.hasModule('collections'))
+
+register(
+  'collection:add',
+  ($org, user, obj) =>
+    $org.hasModule('collections') && hasRole(user, ['admin', 'manager'])
 )
 
 register(
   'collection:edit',
   ($org, user, obj) =>
-    $org.hasModule('collections') && ['admin', 'manager'].includes(user.role)
+    $org.hasModule('collections') && hasRole(user, ['admin', 'manager'])
 )
 
-register(
-  'collection:add',
-  ($org, user, obj) =>
-    $org.hasModule('collections') && ['admin', 'manager'].includes(user.role)
+/***************************************************/
+/*          Store Model Permissions                */
+/***************************************************/
+
+register('store:view', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
+
+register('store:add', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
+
+register('store:edit', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
+
+/***************************************************/
+/*          DeliveryCompanies Model Permissions    */
+/***************************************************/
+
+register('delivery:view', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager'])
 )
 
-register('staff:edit', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
+register('delivery:add', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager'])
 )
 
-register('staff:add', ($org, user, obj) =>
-  ['admin', 'manager'].includes(user.role)
+register('delivery:edit', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager'])
 )

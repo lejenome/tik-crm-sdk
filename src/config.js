@@ -3,6 +3,7 @@ import { version } from '../package.json'
 const DEFAULT_CONFIG = {
   // env: 'production',
   API_BASE_URL: '',
+  SAAS_API_BASE_URL: '',
   API_PREFIX: '/api/',
   CACHE_PREFIX: '',
   VERSION: version,
@@ -48,6 +49,14 @@ export function base_domain() {
 
 export function base_url() {
   return base_domain() + globalThis.tikSdkConfig.API_PREFIX
+}
+
+export function saas_base_domain() {
+  return globalThis.tikSdkConfig.SAAS_API_BASE_URL
+}
+
+export function saas_base_url() {
+  return saas_base_domain() + globalThis.tikSdkConfig.API_PREFIX
 }
 
 export default globalThis.tikSdkConfig

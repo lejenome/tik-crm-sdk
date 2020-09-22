@@ -1,33 +1,20 @@
-import BaseApi from '../base'
+import { saas_base_url, saas_base_domain } from '../config.js'
+import BaseApi from '../core/base.js'
 
-export const config = {
+export const session = {
   authToken: null,
 }
 
-export function base_domain() {
-  if (process.env.NODE_ENV !== 'production') {
-    return process.env.SAAS_API_BASE_URL_DEV || process.env.SAAS_API_BASE_URL
-  } else {
-    return process.env.SAAS_API_BASE_URL
-  }
-}
-
-export function base_url() {
-  if (process.env.NODE_ENV !== 'production') {
-    return (
-      (process.env.SAAS_API_BASE_URL_DEV || process.env.SAAS_API_BASE_URL) +
-      (process.env.API_PREFIX_DEV || process.env.API_PREFIX || '/api/')
-    )
-  } else {
-    return process.env.SAAS_API_BASE_URL + (process.env.API_PREFIX || '/api/')
-  }
-}
-
 class SaasBaseApi extends BaseApi {
-  constructor() {
-    super()
-    this.base_domain = base_domain()
-    this.base_url = base_url()
+  get base_domain() {
+    return saas_base_domain()
+  }
+
+  get base_url() {
+    return saas_base_url()
+  }
+  get session() {
+    return session
   }
 }
 
