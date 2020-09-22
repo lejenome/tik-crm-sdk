@@ -5,6 +5,10 @@
   "module": "index.js",
   "browser": "dist/tik-sdk.full.js",
   "types": "types/tik-sdk.full.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./src/": "./src/"
+  },
   "description": "TIK SDK",
   "license": " GPL-3.0-only",
   "author": {

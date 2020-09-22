@@ -1,6 +1,6 @@
-import BaseApi from '../core/base.js'
+import { UsersApi } from '../core/users.js'
 
-class StaffsApi extends BaseApi {
+class StaffsApi extends UsersApi {
   constructor() {
     super()
     this.resource = 'staffs'
@@ -22,11 +22,6 @@ class StaffsApi extends BaseApi {
       },
       is_active: true,
     }
-  }
-
-  async me() {
-    const obj = await this.http('GET', 'me', null, true)
-    return this.toObj(obj)
   }
 
   toObj(o) {

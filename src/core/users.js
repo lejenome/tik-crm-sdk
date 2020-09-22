@@ -9,6 +9,7 @@ export class UsersApi extends BaseApi {
 
   async me() {
     return await this.http('GET', 'me', null, true)
+    return this.toObj(obj)
   }
 
   async activate(id, token) {

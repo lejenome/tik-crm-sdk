@@ -14,18 +14,6 @@ class InstructorsAuthApi extends AuthApi {
 
   async fetchMe() {
     return await this.asInstructor(async () => await instructorsApi.me())
-    /*
-    let me
-    let oldAuthToken = config.authToken
-    try {
-      config.authToken = config[this.ns.authToken]
-      me = await instructorsApi.me()
-    } catch (e) {
-    } finally {
-      config.authToken = oldAuthToken
-    }
-    return me
-    */
   }
 
   async asInstructor(fn) {

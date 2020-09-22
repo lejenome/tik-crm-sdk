@@ -10,4 +10,5 @@ import * as core from './core/index.js'
 import * as crm from './crm/index.js'
 import * as lms from './lms/index.js'
 import * as cms from './cms/index.js'
-export { core, crm, lms, cms }
+import * as permissions from './permissions/index.js'
+export { core, crm, lms, cms, permissions }
