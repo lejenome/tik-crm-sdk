@@ -18,6 +18,7 @@ export function register(name, fn) {
 
 export function hasPerm(name, $org, user, obj) {
   if (!(name in globalThis.tikSdkPermissions)) {
+    console.error('permission not found', name)
     return false
   }
   return globalThis.tikSdkPermissions[name]($org, user, obj)

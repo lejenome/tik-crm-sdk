@@ -6,7 +6,7 @@ register('dashboard:view-tags', ($org, user, obj) =>
 )
 
 register('dashboard:edit-tags', ($org, user, obj) =>
-  hasRole(user, ['admin', 'manager', 'stock'])
+  hasRole(user, ['admin', 'manager', 'stock', 'finance', 'suivi'])
 )
 
 register(

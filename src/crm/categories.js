@@ -6,7 +6,7 @@ class CategoriesApi extends BaseApi {
     this.resource = 'categories'
     this.model_name = 'category'
     this.verbose_name = 'Category'
-    this.verbose_name_pluarl = 'Categories'
+    this.verbose_name_plural = 'Categories'
     this.view_perm = 'category:view'
     this.add_perm = 'category:add'
     this.change_perm = 'category:change'

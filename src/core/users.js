@@ -6,7 +6,7 @@ export class UsersApi extends BaseApi {
     this.resource = 'users'
     this.model_name = 'user'
     this.verbose_name = 'User'
-    this.verbose_name_pluarl = 'Users'
+    this.verbose_name_plural = 'Users'
     this.view_perm = 'user:view'
     this.add_perm = 'user:add'
     this.change_perm = 'user:change'

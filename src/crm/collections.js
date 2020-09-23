@@ -7,7 +7,7 @@ class CollectionsApi extends BaseApi {
     this.resource = 'collections'
     this.model_name = 'collection'
     this.verbose_name = 'Collection'
-    this.verbose_name_pluarl = 'Collections'
+    this.verbose_name_plural = 'Collections'
     this.view_perm = 'collection:view'
     this.add_perm = 'collection:add'
     this.change_perm = 'collection:change'

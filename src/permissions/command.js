@@ -9,6 +9,12 @@ register('command:add', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager', 'finance', 'commercial'])
 )
 
+register('command:change', ($org, user, obj) => false)
+
+register('command:delete', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager'])
+)
+
 register('command:assign', ($org, user, obj) =>
   hasRole(user, ['admin', 'suivi', 'manager', 'finance'])
 )
@@ -99,10 +105,6 @@ register(
 register(
   'command:view-history',
   ($org, user, obj) => obj.id && hasRole(user, ['admin', 'manager', 'finance'])
-)
-
-register('command:delete', ($org, user, obj) =>
-  hasRole(user, ['admin', 'manager'])
 )
 
 register(

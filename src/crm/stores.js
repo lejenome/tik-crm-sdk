@@ -6,7 +6,7 @@ class StoresApi extends BaseApi {
     this.resource = 'stores'
     this.model_name = 'store'
     this.verbose_name = 'Store'
-    this.verbose_name_pluarl = 'Stores'
+    this.verbose_name_plural = 'Stores'
     this.view_perm = 'store:view'
     this.add_perm = 'store:add'
     this.change_perm = 'store:change'

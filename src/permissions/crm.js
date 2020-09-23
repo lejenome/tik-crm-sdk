@@ -15,6 +15,10 @@ register('client:add', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager', 'finance', 'commercial'])
 )
 
+register('client:change', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'finance', 'commercial'])
+)
+
 register('client:delete', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
@@ -33,6 +37,8 @@ register('staff:change', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
 
+register('staff:delete', ($org, user, obj) => false)
+
 /***************************************************/
 /*          Product Model Permissions              */
 /***************************************************/
@@ -46,6 +52,8 @@ register('product:add', ($org, user, obj) =>
 register('product:change', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
+
+register('product:delete', ($org, user, obj) => false)
 
 register('product:add-quantity', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
@@ -69,6 +77,8 @@ register(
     $org.hasModule('collections') && hasRole(user, ['admin', 'manager'])
 )
 
+register('collection:delete', ($org, user, obj) => false)
+
 /***************************************************/
 /*          Store Model Permissions                */
 /***************************************************/
@@ -80,6 +90,8 @@ register('store:add', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
 register('store:change', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
+
+register('store:delete', ($org, user, obj) => false)
 
 /***************************************************/
 /*          DeliveryCompanies Model Permissions    */
@@ -96,3 +108,5 @@ register('delivery:add', ($org, user, obj) =>
 register('delivery:change', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
+
+register('delivery:delete', ($org, user, obj) => false)

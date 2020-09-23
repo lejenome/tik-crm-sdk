@@ -14,7 +14,7 @@ class BaseApi {
     this.resource = null
     this.model_name = ''
     this.verbose_name = ''
-    this.verbose_name_pluarl = ''
+    this.verbose_name_plural = ''
     this.view_perm = ''
     this.add_perm = ''
     this.change_perm = ''

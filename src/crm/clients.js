@@ -6,7 +6,7 @@ class ClientsApi extends BaseApi {
     this.resource = 'clients'
     this.model_name = 'client'
     this.verbose_name = 'Client'
-    this.verbose_name_pluarl = 'Clients'
+    this.verbose_name_plural = 'Clients'
     this.view_perm = 'client:view'
     this.add_perm = 'client:add'
     this.change_perm = 'client:change'

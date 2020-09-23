@@ -7,7 +7,7 @@ class ProductsApi extends BaseApi {
     this.resource = 'products'
     this.model_name = 'product'
     this.verbose_name = 'Product'
-    this.verbose_name_pluarl = 'Products'
+    this.verbose_name_plural = 'Products'
     this.view_perm = 'product:view'
     this.add_perm = 'product:add'
     this.change_perm = 'product:change'

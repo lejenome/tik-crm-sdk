@@ -6,7 +6,7 @@ class StaffsApi extends UsersApi {
     this.resource = 'staffs'
     this.model_name = 'staff'
     this.verbose_name = 'Staff'
-    this.verbose_name_pluarl = 'Staffs'
+    this.verbose_name_plural = 'Staffs'
     this.view_perm = 'staff:view'
     this.add_perm = 'staff:add'
     this.change_perm = 'staff:change'

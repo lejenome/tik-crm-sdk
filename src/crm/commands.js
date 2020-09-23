@@ -11,7 +11,7 @@ class CommadsApi extends BaseApi {
     this.resource = 'commands'
     this.model_name = 'command'
     this.verbose_name = 'Command'
-    this.verbose_name_pluarl = 'Commands'
+    this.verbose_name_plural = 'Commands'
     this.view_perm = 'command:view'
     this.add_perm = 'command:add'
     this.change_perm = 'command:change'

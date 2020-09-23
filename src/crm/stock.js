@@ -6,7 +6,7 @@ class StockApi extends BaseApi {
     this.resource = 'stock'
     this.model_name = 'stock'
     this.verbose_name = 'Stock'
-    this.verbose_name_pluarl = 'Stock'
+    this.verbose_name_plural = 'Stock'
     this.view_perm = 'stock:view'
     this.add_perm = 'stock:add'
     this.change_perm = 'stock:change'
