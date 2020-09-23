@@ -4,6 +4,13 @@ class DeliveryCompaniesApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'delivery-companies'
+    this.model_name = 'delivery'
+    this.verbose_name = 'Delivery Company'
+    this.verbose_name_pluarl = 'Delivery Companies'
+    this.view_perm = 'delivery:view'
+    this.add_perm = 'delivery:add'
+    this.change_perm = 'delivery:change'
+    this.delete_perm = 'delivery:delete'
     this.configCache({ list: true }, 60 * 60 * 1000)
   }
 

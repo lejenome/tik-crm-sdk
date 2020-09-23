@@ -4,9 +4,14 @@ class ClientsApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'clients'
+    this.model_name = 'client'
+    this.verbose_name = 'Client'
+    this.verbose_name_pluarl = 'Clients'
+    this.view_perm = 'client:view'
+    this.add_perm = 'client:add'
+    this.change_perm = 'client:change'
+    this.delete_perm = 'client:delete'
     this.configCache({ list: true }, 5 * 60 * 1000)
-    this.model_name = 'Client'
-    this.model_name_plural = 'Clients'
   }
 
   new() {
@@ -44,6 +49,10 @@ class ClientsApi extends BaseApi {
       },
     })
     return o
+  }
+
+  toString(obj) {
+    return `${obj.first_name || ''} ${obj.last_name || ''}`
   }
 
   async rapport(id) {

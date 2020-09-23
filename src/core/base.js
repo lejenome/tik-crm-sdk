@@ -11,7 +11,16 @@ if (!globalThis.tikSdkSession) {
 
 class BaseApi {
   constructor() {
+    this.resource = null
+    this.model_name = ''
+    this.verbose_name = ''
+    this.verbose_name_pluarl = ''
+    this.view_perm = ''
+    this.add_perm = ''
+    this.change_perm = ''
+    this.delete_perm = ''
     this.lookup_field = 'id'
+
     this.useCache = {
       list: false,
       get: false,
@@ -115,6 +124,16 @@ class BaseApi {
 
   toObj(o) {
     return o
+  }
+
+  toString(obj) {
+    if (obj.title) {
+      return obj.title
+    } else if (obj.name) {
+      return obj.name
+    } else {
+      return ''
+    }
   }
 
   async list() {

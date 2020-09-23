@@ -4,6 +4,14 @@ class StaffsApi extends UsersApi {
   constructor() {
     super()
     this.resource = 'staffs'
+    this.model_name = 'staff'
+    this.verbose_name = 'Staff'
+    this.verbose_name_pluarl = 'Staffs'
+    this.view_perm = 'staff:view'
+    this.add_perm = 'staff:add'
+    this.change_perm = 'staff:change'
+    this.delete_perm = 'staff:delete'
+
     this.configCache({ list: true }, 60 * 60 * 1000)
   }
 
@@ -70,6 +78,10 @@ class StaffsApi extends UsersApi {
       },
     })
     return o
+  }
+
+  toString(obj) {
+    return `${obj.first_name || ''} ${obj.last_name || ''}`
   }
 
   async unlimited() {

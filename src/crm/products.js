@@ -5,6 +5,14 @@ class ProductsApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'products'
+    this.model_name = 'product'
+    this.verbose_name = 'Product'
+    this.verbose_name_pluarl = 'Products'
+    this.view_perm = 'product:view'
+    this.add_perm = 'product:add'
+    this.change_perm = 'product:change'
+    this.delete_perm = 'product:delete'
+    this.lookup_field = 'sku'
     this.configCache({ list: true }, 15 * 1000)
   }
 

@@ -4,6 +4,13 @@ class StoresApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'stores'
+    this.model_name = 'store'
+    this.verbose_name = 'Store'
+    this.verbose_name_pluarl = 'Stores'
+    this.view_perm = 'store:view'
+    this.add_perm = 'store:add'
+    this.change_perm = 'store:change'
+    this.delete_perm = 'store:delete'
     this.configCache({ list: true }, 60 * 60 * 1000)
   }
 

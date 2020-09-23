@@ -5,6 +5,14 @@ class CollectionsApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'collections'
+    this.model_name = 'collection'
+    this.verbose_name = 'Collection'
+    this.verbose_name_pluarl = 'Collections'
+    this.view_perm = 'collection:view'
+    this.add_perm = 'collection:add'
+    this.change_perm = 'collection:change'
+    this.delete_perm = 'collection:delete'
+    this.lookup_field = 'sku'
     this.configCache({ list: true }, 60 * 60 * 1000)
   }
 

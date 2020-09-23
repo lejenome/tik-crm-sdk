@@ -27,6 +27,10 @@ register('dashboard:filter', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager', 'finance'])
 )
 
+register('dashboard:change', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'finance'])
+)
+
 register('dashboard:view-products-chart', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager', 'finance', 'stock'])
 )

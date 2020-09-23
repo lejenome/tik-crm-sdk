@@ -4,6 +4,13 @@ class StockApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'stock'
+    this.model_name = 'stock'
+    this.verbose_name = 'Stock'
+    this.verbose_name_pluarl = 'Stock'
+    this.view_perm = 'stock:view'
+    this.add_perm = 'stock:add'
+    this.change_perm = 'stock:change'
+    this.delete_perm = 'stock:delete'
     this.configCache({ list: true }, 60 * 1000)
   }
 
@@ -19,6 +26,10 @@ class StockApi extends BaseApi {
       staff_id: user_id,
       commands: commands.map((c) => c.id),
     })
+  }
+
+  toString(obj) {
+    return obj.id ? obj.id.toString().padStart(8, '0') : ''
   }
 }
 

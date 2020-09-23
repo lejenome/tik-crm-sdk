@@ -9,6 +9,13 @@ class CommadsApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'commands'
+    this.model_name = 'command'
+    this.verbose_name = 'Command'
+    this.verbose_name_pluarl = 'Commands'
+    this.view_perm = 'command:view'
+    this.add_perm = 'command:add'
+    this.change_perm = 'command:change'
+    this.delete_perm = 'command:delete'
     this.configCache({ list: true }, 60 * 1000)
   }
 
@@ -44,6 +51,10 @@ class CommadsApi extends BaseApi {
       discount: 0,
       total: 0,
     }
+  }
+
+  toString(obj) {
+    return obj.id ? obj.id.toString().padStart(8, '0') : ''
   }
 
   setClient(command, client) {

@@ -4,6 +4,13 @@ export class UsersApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'users'
+    this.model_name = 'user'
+    this.verbose_name = 'User'
+    this.verbose_name_pluarl = 'Users'
+    this.view_perm = 'user:view'
+    this.add_perm = 'user:add'
+    this.change_perm = 'user:change'
+    this.delete_perm = 'user:delete'
     this.configCache({ list: true }, 60 * 60 * 1000)
   }
 
@@ -18,6 +25,10 @@ export class UsersApi extends BaseApi {
 
   async get_by_email(email) {
     return await this.http('POST', 'email', { email }, true)
+  }
+
+  toString(obj) {
+    return `${obj.first_name || ''} ${obj.last_name || ''}`
   }
 }
 

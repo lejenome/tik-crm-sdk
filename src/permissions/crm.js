@@ -29,7 +29,9 @@ register('staff:view', ($org, user, obj) =>
 
 register('staff:add', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
 
-register('staff:edit', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
+register('staff:change', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager'])
+)
 
 /***************************************************/
 /*          Product Model Permissions              */
@@ -41,7 +43,7 @@ register('product:add', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
 
-register('product:edit', ($org, user, obj) =>
+register('product:change', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
 
@@ -62,7 +64,7 @@ register(
 )
 
 register(
-  'collection:edit',
+  'collection:change',
   ($org, user, obj) =>
     $org.hasModule('collections') && hasRole(user, ['admin', 'manager'])
 )
@@ -75,7 +77,9 @@ register('store:view', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
 
 register('store:add', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
 
-register('store:edit', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
+register('store:change', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager'])
+)
 
 /***************************************************/
 /*          DeliveryCompanies Model Permissions    */
@@ -89,6 +93,6 @@ register('delivery:add', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
 
-register('delivery:edit', ($org, user, obj) =>
+register('delivery:change', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
