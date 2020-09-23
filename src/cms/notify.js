@@ -19,8 +19,8 @@ export class NotifyApi {
     let r = ''
     const keys = Object.keys(form).filter((k) => !FORM_SPECIAL_KEYS.includes(k))
     for (const k of keys) {
-      let k_n = k.replace(/[_-]+/, ' ').toLowerCase()
-      let v = form[k]
+      const k_n = k.replace(/[_-]+/, ' ').toLowerCase()
+      const v = form[k]
       if (v) {
         v.toString().trim()
       }

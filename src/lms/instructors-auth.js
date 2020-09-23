@@ -17,7 +17,7 @@ class InstructorsAuthApi extends AuthApi {
   }
 
   async asInstructor(fn) {
-    let oldAuthToken = config.authToken
+    const oldAuthToken = config.authToken
     try {
       config.authToken = config[this.ns.authToken]
       const res = await fn()

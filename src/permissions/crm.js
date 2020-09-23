@@ -1,21 +1,7 @@
+/*eslint no-unused-vars: ["error", { "args": "none" }]*/
 import { register, hasRole } from './base'
 
 // TODO: support all default permissions for all models (view, add, change/change, delete)
-
-const ALL_ROLES = [
-  'admin',
-  'manager',
-  'finance',
-  'suivi',
-  'commercial',
-  'stock',
-]
-const ACTIVE_ROLES = ['admin', 'manager', 'finance', 'suivi', 'commercial']
-const TOP_ADMINS = ['admin', 'manager']
-const SUIVIS = ['admin', 'manager', 'finance', 'suivi']
-const COMMERCIALS = ['admin', 'manager', 'finance', 'commercial']
-const STOCK_TEAM = ['admin', 'manager', 'stock']
-const POS_TEAM = ['admin', 'manager', 'pos']
 
 /***************************************************/
 /*          Client Model Permissions               */

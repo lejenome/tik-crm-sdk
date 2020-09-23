@@ -3,14 +3,14 @@ import config from '../config'
 export class Cache {
   has(n) {
     return (
-      global.localStorage &&
-      global.localStorage[`${config.CACHE_PREFIX}_cache_${n}`]
+      globalThis.localStorage &&
+      globalThis.localStorage[`${config.CACHE_PREFIX}_cache_${n}`]
     )
   }
 
   del(n) {
-    if (global.localStorage) {
-      delete global.localStorage[`${config.CACHE_PREFIX}_cache_${n}`]
+    if (globalThis.localStorage) {
+      delete globalThis.localStorage[`${config.CACHE_PREFIX}_cache_${n}`]
     }
   }
 
@@ -18,16 +18,18 @@ export class Cache {
     if (use_cache && this.has(n)) {
       try {
         return JSON.parse(
-          global.localStorage[`${config.CACHE_PREFIX}_cache_${n}`]
+          globalThis.localStorage[`${config.CACHE_PREFIX}_cache_${n}`]
         )
-      } catch (e) {}
+      } catch (e) {
+        console.error('[tikSdk]', e)
+      }
     }
   }
 
   set(n, res) {
-    if (global.localStorage) {
+    if (globalThis.localStorage) {
       const k = `${config.CACHE_PREFIX}_cache_${n}`
-      global.localStorage[k] = JSON.stringify(res)
+      globalThis.localStorage[k] = JSON.stringify(res)
     }
   }
 

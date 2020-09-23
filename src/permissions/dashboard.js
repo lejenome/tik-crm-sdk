@@ -1,3 +1,4 @@
+/*eslint no-unused-vars: ["error", { "args": "none" }]*/
 import { register, hasRole } from './base'
 
 register('dashboard:view-tags', ($org, user, obj) =>

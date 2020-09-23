@@ -1,3 +1,4 @@
+/*eslint no-unused-vars: ["error", { "args": "none" }]*/
 import { register, hasRole } from './base'
 
 register('command:view', ($org, user, obj) =>
@@ -30,7 +31,7 @@ register(
   'command:mark-canceled',
   ($org, user, obj) =>
     hasRole(user, ['admin', 'manager', 'finance', 'suivi']) &&
-    object.status === 'inprogress'
+    obj.status === 'inprogress'
 )
 
 register(

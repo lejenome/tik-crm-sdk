@@ -14,7 +14,7 @@ module.exports = {
     },
   },
 
-  extends: ['prettier', 'plugin:prettier/recommended'],
+  extends: ['eslint:recommended', 'prettier', 'plugin:prettier/recommended'],
   plugins: ['prettier'],
   // add your custom rules here
   rules: {
@@ -28,12 +28,13 @@ module.exports = {
 
     quotes: ['off', 'double'],
     indent: 'off',
+    'no-unreachable': 'error',
 
     // '@typescript-eslint/no-unused-vars': 'off',
-    'no-unused-vars': 'off',
-    'prefer-promise-reject-errors': 'off',
-    'prefer-const': 'off',
-    'no-return-await': 'off',
+    'no-unused-vars': 'error',
+    'prefer-promise-reject-errors': 'warn',
+    'prefer-const': 'error',
+    'no-return-await': 'warn',
     'max-len': 'off',
     'no-new': 'off',
     'no-lonely-if': 'off',

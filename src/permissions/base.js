@@ -2,6 +2,16 @@ if (!globalThis.tikSdkPermissions) {
   globalThis.tikSdkPermissions = {}
 }
 
+export const ROLES = {
+  ALL_ROLES: ['admin', 'manager', 'finance', 'suivi', 'commercial', 'stock'],
+  ACTIVE_ROLES: ['admin', 'manager', 'finance', 'suivi', 'commercial'],
+  TOP_ADMINS: ['admin', 'manager'],
+  SUIVIS: ['admin', 'manager', 'finance', 'suivi'],
+  COMMERCIALS: ['admin', 'manager', 'finance', 'commercial'],
+  STOCK_TEAM: ['admin', 'manager', 'stock'],
+  POS_TEAM: ['admin', 'manager', 'pos'],
+}
+
 export function register(name, fn) {
   globalThis.tikSdkPermissions[name] = fn
 }

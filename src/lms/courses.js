@@ -47,8 +47,6 @@ export class CoursesApi extends BaseApi {
 
   setupCourseLessons(course) {
     let count = 0
-    let duration = 0
-    let days = 0
     for (const m of course.chapters) {
       for (const l of m.lessons) {
         l.index = count
@@ -135,7 +133,9 @@ export class CoursesApi extends BaseApi {
     // FIXME
     try {
       return this.getLessonCourse(id).trainer
-    } catch (e) {}
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   fixEnroll(enroll) {
@@ -161,7 +161,7 @@ export class CoursesApi extends BaseApi {
     }
   }
 
-  async getUserEnrolls(user_id) {
+  async getUserEnrolls() {
     // user_id = parseInt(user_id)
     return await enrollsApi.list()
   }
@@ -192,7 +192,7 @@ export class CoursesApi extends BaseApi {
   }
 
   async markCompleted(lesson_id, enroll) {
-    let completed_lessons = Array.from(enroll.completed_lessons)
+    const completed_lessons = Array.from(enroll.completed_lessons)
     if (!completed_lessons.includes(lesson_id)) {
       completed_lessons.push(lesson_id)
     }
@@ -207,7 +207,7 @@ export class CoursesApi extends BaseApi {
     return this.fixEnroll(enroll)
   }
 
-  async enroll(course, user_id) {
+  async enroll(course) {
     // user_id = parseInt(user_id)
     if (course.id) {
       course = course.id
