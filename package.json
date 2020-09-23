@@ -25,7 +25,7 @@
     "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --ignore-pattern **/*.min.js ."
   },
   "browserslist": [
-    "last 2 versions",
+    "last 2 versions AND last 2 years AND supports es6-module",
     "not IE 11",
     "not IE_Mob 11",
     "not dead"

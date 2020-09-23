@@ -8,7 +8,7 @@ export class UsersApi extends BaseApi {
   }
 
   async me() {
-    return await this.http('GET', 'me', null, true)
+    const obj = await this.http('GET', 'me', null, true)
     return this.toObj(obj)
   }
 
