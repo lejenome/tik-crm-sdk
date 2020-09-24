@@ -3,7 +3,6 @@
   "version": "2020.09.09",
   "main": "index.js",
   "module": "index.js",
-  "browser": "dist/tik-sdk.full.js",
   "types": "types/tik-sdk.full.d.ts",
   "exports": {
     ".": "./index.js",
