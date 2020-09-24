@@ -1,5 +1,7 @@
 const path = require('path')
+const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 const libs = [
   {
@@ -65,6 +67,10 @@ module.exports = libs.map((lib) => ({
   },
   plugins: [
     // new CleanWebpackPlugin(),
+    // new webpack.EnvironmentPlugin({
+    //   NODE_ENV: process.env.NODE_ENV,
+    // }),
+    new Dotenv(),
     /*
     new webpack.optimize.UglifyJsPlugin({
       compressor: {

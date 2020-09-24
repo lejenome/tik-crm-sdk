@@ -19,8 +19,9 @@ register('client:change', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager', 'finance', 'commercial'])
 )
 
-register('client:delete', ($org, user, obj) =>
-  hasRole(user, ['admin', 'manager'])
+register(
+  'client:delete',
+  ($org, user, obj) => hasRole(user, ['admin', 'manager']) && obj && obj.id
 )
 
 /***************************************************/
@@ -55,8 +56,9 @@ register('product:change', ($org, user, obj) =>
 
 register('product:delete', ($org, user, obj) => false)
 
-register('product:add-quantity', ($org, user, obj) =>
-  hasRole(user, ['admin', 'manager'])
+register(
+  'product:add-quantity',
+  ($org, user, obj) => hasRole(user, ['admin', 'manager']) && obj && obj.id
 )
 
 /***************************************************/

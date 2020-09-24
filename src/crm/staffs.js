@@ -17,18 +17,20 @@ class StaffsApi extends UsersApi {
 
   new() {
     return {
+      first_name: '',
+      last_name: '',
       full_name: '',
-      status: 'indoor',
+      // status: 'indoor',
       roles: ['commercial'],
       phone: '',
       email: '',
       attrs: {
         unlimited_access: false,
-        // is_freelance: false,
         start_at: '08:00',
         end_at: '18:00',
       },
       is_active: true,
+      is_staff: true,
     }
   }
 

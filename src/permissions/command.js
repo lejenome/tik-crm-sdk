@@ -11,8 +11,9 @@ register('command:add', ($org, user, obj) =>
 
 register('command:change', ($org, user, obj) => false)
 
-register('command:delete', ($org, user, obj) =>
-  hasRole(user, ['admin', 'manager'])
+register(
+  'command:delete',
+  ($org, user, obj) => hasRole(user, ['admin', 'manager']) && obj && obj.id
 )
 
 register('command:assign', ($org, user, obj) =>

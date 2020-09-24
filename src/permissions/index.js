@@ -1,4 +1,5 @@
 export { hasPerm, hasRole } from './base.js'
 import './crm.js'
+import './lms.js'
 import './dashboard.js'
 import './command.js'
