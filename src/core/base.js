@@ -71,6 +71,8 @@ class BaseApi {
         for (let [k, v] of Object.entries(json)) {
           if (v === null) {
             v = ''
+          } else if (v instanceof Object && v.__proto__.isPrototypeOf(Object)){
+            v = JSON.stringify(v)
           }
           data.append(k, v)
         }
@@ -160,7 +162,7 @@ class BaseApi {
       return this.new()
     }
     /*
-    // const el = this.data.filter((el) => el.id === id);
+    // const el = this.data.filter((el) => el[this.lookup_field] === id);
     if (el.length === 1) {
       return el[0];
     } else {
@@ -178,16 +180,16 @@ class BaseApi {
     allow404 = false
   ) {
     this.validateCache = true
-    if ((el.id || id) && !forceCreate) {
+    if ((el[this.lookup_field] || id) && !forceCreate) {
       const instance = await this.http(
         partial_update ? 'PATCH' : 'PUT',
-        id || el.id,
+        id || el[this.lookup_field],
         el,
         allow404
       )
       return this.toObj(instance)
       /*
-      const instance = this.get(el.id);
+      const instance = this.get(el[this.lookup_field]);
       if (instance) {
         const old = Object.assign({}, instance);
         Object.assign(instance, el);
@@ -203,8 +205,8 @@ class BaseApi {
       const instance = await this.http('POST', '', el, allow404)
       return instance
       /*
-      const nextId = Math.max(...this.data.map((c) => c.id)) + 1;
-      el.id = nextId;
+      const nextId = Math.max(...this.data.map((c) => c[this.lookup_field])) + 1;
+      el[this.lookup_field] = nextId;
       if (this.preCreate) {
         await this.preCreate(el);
       }
