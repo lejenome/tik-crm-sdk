@@ -8,7 +8,42 @@ export class CoursesApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'courses'
+    this.model_name = 'course'
+    this.verbose_name = 'Course'
+    this.verbose_name_plural = 'Courses'
+    this.view_perm = 'course:view'
+    this.add_perm = 'course:add'
+    this.change_perm = 'course:change'
+    this.delete_perm = 'course:delete'
     this.configCache({ list: true }, 60 * 60 * 1000)
+  }
+
+  new() {
+    return {
+      sku: '',
+      title: '',
+      thumbnail: null,
+      description: '',
+      user_id: null,
+      user: null,
+
+      video: null,
+      video_url: null,
+
+      category_id: null,
+      category_title: '',
+
+      chapters: [],
+
+      level: 'beginner',
+      language: 'fr',
+      days: 30,
+      published: false,
+      is_active: true,
+      saleoffers: [],
+      price_net: 0,
+      tax_rate: 19,
+    }
   }
 
   async getCourse(id, forceCache = false) {

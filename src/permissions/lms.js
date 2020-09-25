@@ -41,3 +41,37 @@ register('instructor:change', ($org, user, obj) =>
 )
 
 register('instructor:delete', ($org, user, obj) => false)
+
+/***************************************************/
+/*          Enrolls Model Permissions              */
+/***************************************************/
+
+register('enroll:view', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'finance', 'instructor'])
+)
+
+register('enroll:add', ($org, user, obj) => hasRole(user, ['admin', 'manager']))
+
+register('enroll:change', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager'])
+)
+
+register('enroll:delete', ($org, user, obj) => false)
+
+/***************************************************/
+/*          Course Model Permissions               */
+/***************************************************/
+
+register('course:view', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'instructor'])
+)
+
+register('course:add', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'instructor'])
+)
+
+register('course:change', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'instructor'])
+)
+
+register('course:delete', ($org, user, obj) => false)

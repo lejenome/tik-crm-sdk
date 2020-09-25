@@ -71,7 +71,7 @@ class BaseApi {
         for (let [k, v] of Object.entries(json)) {
           if (v === null) {
             v = ''
-          } else if (v instanceof Object && v.__proto__.isPrototypeOf(Object)){
+          } else if (v instanceof Object && v.__proto__.isPrototypeOf(Object)) {
             v = JSON.stringify(v)
           }
           data.append(k, v)
