@@ -262,6 +262,21 @@ export class CoursesApi extends BaseApi {
       forceCache
     )
   }
+  status(obj) {
+    const disabled = {
+      display_text: 'Disabled',
+      color: 'secondary',
+    }
+    const draft = {
+      display_text: 'Draft',
+      color: 'warning',
+    }
+    const published = {
+      display_text: 'Published',
+      color: 'success',
+    }
+    return obj && obj.is_active ? (obj.published ? published : draft) : disabled
+  }
 }
 
 const coursesApi = new CoursesApi()

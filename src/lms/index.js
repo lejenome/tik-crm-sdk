@@ -4,6 +4,7 @@ export { default as chapters } from './chapters'
 export { default as lessons } from './lessons'
 export { default as quizs } from './quizs'
 
+export { default as categories } from './categories'
 export { default as instructors } from './instructors'
 export { default as students } from './students'
 export { default as enrolls } from './enrolls'

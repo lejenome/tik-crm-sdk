@@ -66,13 +66,27 @@ class BaseApi {
       url += qs.stringify(json, true)
       json = null
     } else if (json) {
-      if (Object.values(json).some((v) => v instanceof File)) {
+      if (
+        Object.values(json).some((v) => v instanceof File || v instanceof Blob)
+      ) {
         const data = new FormData()
+        // eslint-disable-next-line prefer-const
         for (let [k, v] of Object.entries(json)) {
-          if (v === null) {
+          if (v === null || v === undefined) {
             v = ''
-          } else if (v instanceof Object && v.__proto__.isPrototypeOf(Object)) {
+          } else if (v instanceof Date) {
+            v = v.toISOString()
+          } else if (Array.isArray(v)) {
             v = JSON.stringify(v)
+          } else if (v instanceof File || v instanceof Blob) {
+            // pass : v = v
+            // DO NOT DELETE, next conditions depend on it
+          } else if (v instanceof Object) {
+            v = JSON.stringify(v)
+          } else if (typeof v === 'boolean') {
+            v = v ? 'True' : 'False'
+          } else {
+            v = v.toString()
           }
           data.append(k, v)
         }
