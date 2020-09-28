@@ -43,7 +43,8 @@ class CollectionsApi extends BaseApi {
       if (item.product) {
         return productsApi.price(item.product, item.count)
       } else {
-        // TODO
+        // FIXME
+        return parseFloat(item.price)
       }
     } else {
       return parseFloat(item.price)
@@ -107,7 +108,7 @@ class CollectionsApi extends BaseApi {
   price(collection) {
     const price =
       collection.items.reduce((s, it) => this.itemPrice(it) + s, 0) -
-      parseFloat(collection.discount)
+      parseFloat(collection.discount || 0)
     return Math.round(price * 100) / 100
   }
 }
