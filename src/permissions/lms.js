@@ -75,3 +75,21 @@ register('course:change', ($org, user, obj) =>
 )
 
 register('course:delete', ($org, user, obj) => false)
+
+/***************************************************/
+/*          Lesson Model Permissions               */
+/***************************************************/
+
+register('lesson:view', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'instructor'])
+)
+
+register('lesson:add', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'instructor'])
+)
+
+register('lesson:change', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'instructor'])
+)
+
+register('lesson:delete', ($org, user, obj) => false)
