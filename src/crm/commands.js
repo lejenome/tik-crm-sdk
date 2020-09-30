@@ -77,7 +77,8 @@ class CommadsApi extends BaseApi {
       if (item.product) {
         return productsApi.price(item.product, item.count)
       } else {
-        // TODO
+        // FIXME
+        return parseFloat(item.price)
       }
     } else {
       return parseFloat(item.price)

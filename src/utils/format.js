@@ -292,6 +292,25 @@ export function num2Letters(nombre) {
 
   return numberToLetter
 }
+
+export function money2Letters(n) {
+  try {
+    const x = parseFloat(n.toFixed(3))
+    n = x
+  } catch (e) {
+    console.error(e)
+  }
+  let p1 = Math.trunc(n)
+  let p2 = +(n % 1).toFixed(3) * 1000
+  p1 = num2Letters(p1) + ' dinars'
+  if (p2) {
+    p2 = ' et ' + num2Letters(p2) + ' millimes'
+  } else {
+    p2 = ''
+  }
+  return `${p1}${p2}`
+}
+
 export function formatMoney(
   amount,
   decimalCount = 3,
