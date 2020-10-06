@@ -7,7 +7,7 @@ import cache from '../utils/cache.js'
 export class AuthApi extends BaseApi {
   constructor() {
     super()
-    this.resource = 'token'
+    this.resource = 'auth'
     // this.configCache({ list: true }, 60 * 60 * 1000)
     this.me = {}
     this.ns = {
@@ -22,6 +22,11 @@ export class AuthApi extends BaseApi {
     return await staffsApi.me()
   }
 
+  async user() {
+    const obj = await this.http('GET', 'user', null, true)
+    return this.toObj(obj)
+  }
+
   async currentUser() {
     if (this.me && this.me.id) {
       return this.me
@@ -33,7 +38,9 @@ export class AuthApi extends BaseApi {
       if (navigator.onLine) {
         try {
           resp = await this.fetchMe()
-        } catch (e) {}
+        } catch (e) {
+          console.error(e)
+        }
       }
       if (!resp) {
         await this.logout()
@@ -50,10 +57,10 @@ export class AuthApi extends BaseApi {
   }
 
   async login(email, password) {
-    const resp = await this.http('POST', '', { email, password }, true)
-    if (resp.access) {
-      this.session[this.ns.authToken] = resp.access
-      cache.set(this.ns.token, { token: resp.access })
+    const resp = await this.http('POST', 'login', { email, password }, true)
+    if (resp.access_token) {
+      this.session[this.ns.authToken] = resp.access_token
+      cache.set(this.ns.token, { token: resp.access_token })
       return true
     } else {
       return false
@@ -65,7 +72,7 @@ export class AuthApi extends BaseApi {
     if (token) {
       let resp = true
       if (navigator.onLine) {
-        resp = await this.http('POST', 'verify', token, true)
+        resp = await this.http('POST', 'token/verify', token, true)
         resp = resp && resp.code !== 'token_not_valid'
       }
       if (resp) {
