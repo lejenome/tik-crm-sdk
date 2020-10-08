@@ -40,6 +40,15 @@ class BaseApi {
     return globalThis.tikSdkSession
   }
 
+  get_url(path) {
+    if (path) {
+      path = `${this.resource}/${path}`
+    } else {
+      path = `${this.resource}`
+    }
+    return `${this.base_url}${path}/`
+  }
+
   configCache(cache, timeout) {
     this.useCache = cache
     if (this._cacheTimeout) {
@@ -54,13 +63,8 @@ class BaseApi {
   }
 
   async http(method, path, json, allow404 = false) {
-    if (path) {
-      path = `${this.resource}/${path}`
-    } else {
-      path = `${this.resource}`
-    }
     let headers = {}
-    let url = `${this.base_url}${path}/`
+    let url = this.get_url(path)
     let req
     if (json && method === 'GET') {
       url += qs.stringify(json, true)

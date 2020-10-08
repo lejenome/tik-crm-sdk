@@ -86,6 +86,7 @@ export class AuthApi extends BaseApi {
   }
 
   async logout() {
+    await this.http('POST', 'logout', {})
     this.me = {}
     this.session[this.ns.authToken] = null
     cache.del(this.ns.token)
@@ -93,6 +94,63 @@ export class AuthApi extends BaseApi {
     Sentry.configureScope((scope) => {
       scope.setUser({})
     })
+  }
+
+  async passwordRequestReset(email) {
+    return await this.http('POST', 'password/reset', { email })
+  }
+
+  async passwordReset({ token, uid, password }) {
+    return await this.http('POST', 'password/reset/confirm', {
+      uid,
+      token,
+      new_password1: password,
+      new_password2: password,
+    })
+  }
+
+  async confirmEmail(key) {
+    return await this.http('POST', 'register/verify-email', { key })
+  }
+
+  async register(user) {
+    return await this.http('POST', 'register', {
+      ...user,
+      password1: user.password,
+      password2: user.password,
+    })
+  }
+
+  async socialaccounts() {
+    return await this.http('GET', 'socialaccounts')
+  }
+
+  async socialapps() {
+    return await this.http('GET', 'socialapps')
+    /*
+    return [
+      'google',
+      'linkedin_oauth2',
+      'microsoft',
+      'facebook',
+      'twitter',
+    ]
+    */
+  }
+  async redirectSocialLogin(provider) {
+    const url = this.get_url(provider)
+    globalThis.location.href = url
+  }
+
+  async socialLogin(provider, params) {
+    const resp = await this.http('POST', `${provider}`, params, true)
+    if (resp.access_token) {
+      this.session[this.ns.authToken] = resp.access_token
+      cache.set(this.ns.token, { token: resp.access_token })
+      return true
+    } else {
+      return false
+    }
   }
 }
 
