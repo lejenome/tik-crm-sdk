@@ -97,7 +97,7 @@ export class AuthApi extends BaseApi {
   }
 
   async passwordRequestReset(email) {
-    return await this.http('POST', 'password/reset', { email })
+    return await this.http('POST', 'password/reset', { email }, true)
   }
 
   async passwordReset({ token, uid, password }) {
