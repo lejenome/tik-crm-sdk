@@ -110,7 +110,7 @@ export class AuthApi extends BaseApi {
   }
 
   async confirmEmail(key) {
-    return await this.http('POST', 'register/verify-email', { key })
+    return await this.http('POST', 'register/verify-email', { key }, true)
   }
 
   async register(user) {
