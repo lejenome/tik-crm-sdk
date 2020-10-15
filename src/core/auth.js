@@ -57,6 +57,7 @@ export class AuthApi extends BaseApi {
   }
 
   async login(email, password) {
+    email = email || undefined // email is optional if using auth_token as password
     const resp = await this.http('POST', 'login', { email, password }, true)
     if (resp.access_token) {
       this.session[this.ns.authToken] = resp.access_token
@@ -94,6 +95,10 @@ export class AuthApi extends BaseApi {
     Sentry.configureScope((scope) => {
       scope.setUser({})
     })
+  }
+
+  async emailAuthToken(email) {
+    return await this.http('POST', 'email_token', { email }, true)
   }
 
   async passwordRequestReset(email) {
