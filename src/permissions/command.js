@@ -16,65 +16,61 @@ register(
   ($org, user, obj) => hasRole(user, ['admin', 'manager']) && obj && obj.id
 )
 
-register('command:assign', ($org, user, obj) =>
-  hasRole(user, ['admin', 'suivi', 'manager', 'finance'])
+register(
+  'command:assign',
+  ($org, user, obj) =>
+    hasRole(user, ['admin', 'suivi', 'manager', 'finance']) &&
+    (!obj || ['scheduled', 'new'].includes(obj.status))
 )
 
 register(
   'command:mark-new',
   ($org, user, obj) =>
     hasRole(user, ['admin', 'manager', 'finance', 'commercial']) &&
-    obj.status === 'scheduled'
+    (!obj || obj.status === 'scheduled')
 )
 
 register(
   'command:mark-done',
   ($org, user, obj) =>
     hasRole(user, ['admin', 'manager', 'finance', 'suivi']) &&
-    obj.status === 'inprogress'
+    (!obj || obj.status === 'inprogress')
 )
 
 register(
   'command:mark-canceled',
   ($org, user, obj) =>
     hasRole(user, ['admin', 'manager', 'finance', 'suivi']) &&
-    obj.status === 'inprogress'
+    (!obj || obj.status === 'inprogress')
 )
 
 register(
   'command:mark-returned',
   ($org, user, obj) =>
     hasRole(user, ['admin', 'manager', 'finance', 'suivi', 'stock']) &&
-    ['canceled', 'inprogress'].includes(obj.status)
+    (!obj || ['canceled', 'inprogress'].includes(obj.status))
 )
 
 register(
   'command:mark-cash',
   ($org, user, obj) =>
     hasRole(user, ['admin', 'manager', 'finance']) &&
-    ['done', 'inprogress'].includes(obj.status)
+    (!obj || ['done', 'inprogress'].includes(obj.status))
 )
 
 register(
   'command:mark-paid',
   ($org, user, obj) =>
     hasRole(user, ['admin', 'manager', 'finance']) &&
-    ['cash', 'inprogress'].includes(obj.status)
+    (!obj || ['cash', 'inprogress'].includes(obj.status))
 )
 
 register(
   'command:print-quote',
   ($org, user, obj) =>
     hasRole(user, ['admin', 'manager', 'finance', 'stock', 'suivi']) &&
-    obj.id &&
-    ['inprogress', 'done', 'canceled'].includes(obj.status)
-)
-
-register(
-  'command:print-invoice',
-  ($org, user, obj) =>
-    hasRole(user, ['admin', 'manager', 'finance']) &&
-    ['inprogress', 'done', 'cash', 'paid'].includes(obj.status)
+    (!obj ||
+      (obj.id && ['inprogress', 'done', 'canceled'].includes(obj.status)))
 )
 
 register(
@@ -83,6 +79,15 @@ register(
     hasRole(user, ['admin', 'manager', 'finance', 'stock']) &&
     $org.hasDeliveryBackend('aramex') &&
     ['aramex'].includes(obj.delivery_type) &&
+    ['inprogress', 'done', 'cash', 'paid'].includes(obj.status)
+)
+
+register(
+  'command:print-fparcel-label',
+  ($org, user, obj) =>
+    hasRole(user, ['admin', 'manager', 'finance', 'stock']) &&
+    $org.hasDeliveryBackend('fparcel') &&
+    ['fparcel'].includes(obj.delivery_type) &&
     ['inprogress', 'done', 'cash', 'paid'].includes(obj.status)
 )
 
@@ -156,6 +161,7 @@ register(
     obj.shipment.shipment_id &&
     ['inprogress', 'done', 'cash'].includes(obj.status)
 )
+
 register(
   'command:view-cash',
   ($org, user, obj) => hasRole(user, ['admin']) && obj.status === 'done'
@@ -179,6 +185,13 @@ register('command:mark-released', ($org, user, obj) =>
 
 register(
   'command:invoice',
+  ($org, user, obj) =>
+    ['inprogress', 'done', 'cash', 'paid'].includes(obj.status) &&
+    hasRole(user, ['admin', 'manager', 'finance'])
+)
+
+register(
+  'command:print-invoice',
   ($org, user, obj) =>
     ['inprogress', 'done', 'cash', 'paid'].includes(obj.status) &&
     hasRole(user, ['admin', 'manager', 'finance'])

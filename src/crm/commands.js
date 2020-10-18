@@ -5,7 +5,7 @@ import storesApi from './stores.js'
 import productsApi from './products.js'
 import $organization from '../organization'
 
-class CommadsApi extends BaseApi {
+export class CommandsApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'commands'
@@ -336,5 +336,5 @@ class CommadsApi extends BaseApi {
   }
 }
 
-const commandsApi = new CommadsApi()
-export default commandsApi
+const api = new CommandsApi()
+export default api

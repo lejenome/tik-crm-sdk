@@ -46,6 +46,9 @@ class StaffsApi extends UsersApi {
       'freelance',
     ]
     o.roles = ALL_ROLES.filter((r) => o.roles.includes(r))
+    if (!o.attrs) {
+      o.attrs = {}
+    }
     Object.defineProperties(o, {
       role: {
         get() {

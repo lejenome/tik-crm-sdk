@@ -19,7 +19,7 @@ class ProductsApi extends BaseApi {
   new() {
     return {
       title: '',
-      count: 0,
+      stock_count: 0,
       sku: '',
       // status: "In Stock",
       category_id: null,
@@ -38,8 +38,11 @@ class ProductsApi extends BaseApi {
     }
   }
 
-  async addStock(p, count) {
-    return this.http('POST', `${p.sku}/stock`, { count })
+  async addStock(p, stockAdjustment) {
+    if (typeof stockAdjustment === 'number') {
+      stockAdjustment = { delta: stockAdjustment }
+    }
+    return this.http('POST', `${p.sku}/stock`, stockAdjustment)
   }
 
   async rapport(query) {
@@ -83,9 +86,9 @@ class ProductsApi extends BaseApi {
   }
 
   stockColor(product) {
-    if (product.count < 300) {
+    if (product.stock_count < product.stock_alert_limit) {
       return '#dd4b39'
-    } else if (product.count < 500) {
+    } else if (product.stock_count < product.stock_warning_limit) {
       return '#f39c12'
     } else {
       return '#00a65a'

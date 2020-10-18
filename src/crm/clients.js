@@ -1,6 +1,6 @@
 import BaseApi from '../core/base.js'
 
-class ClientsApi extends BaseApi {
+export class ClientsApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'clients'
@@ -96,5 +96,5 @@ class ClientsApi extends BaseApi {
   }
 }
 
-const clientsApi = new ClientsApi()
-export default clientsApi
+const api = new ClientsApi()
+export default api
