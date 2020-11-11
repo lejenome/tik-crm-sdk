@@ -93,3 +93,25 @@ register('lesson:change', ($org, user, obj) =>
 )
 
 register('lesson:delete', ($org, user, obj) => false)
+
+/***************************************************/
+/*          Meeting Model Permissions              */
+/***************************************************/
+
+register('meeting:view', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'instructor'])
+)
+
+register('meeting:add', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'instructor'])
+)
+
+register('meeting:change', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager', 'instructor'])
+)
+
+register('meeting:change-webinar', ($org, user, obj) =>
+  hasRole(user, ['admin', 'manager'])
+)
+
+register('meeting:delete', ($org, user, obj) => false)

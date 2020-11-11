@@ -9,7 +9,8 @@ export { default as instructors } from './instructors'
 export { default as students } from './students'
 export { default as enrolls } from './enrolls'
 
-export { default as webinars } from './webinars'
+// export { default as webinars } from './webinars'
+export { default as meetings } from './meetings'
 export { default as attendees } from './attendees'
 
 export { default as reports } from './reports'

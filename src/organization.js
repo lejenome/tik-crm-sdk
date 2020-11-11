@@ -45,20 +45,26 @@ export class Organization {
     this.http_protocol = ($base_url.protocol || 'https:') + '//'
     this.http_port = $base_url.port ? `:${$base_url.port}` : ''
     const domains = {}
+    const origins = {}
     for (const domain of data.domains) {
       domains[domain.type] = domain.domain
+      origins[domain.type] = domain.origin
     }
     if (!domains.api) {
       domains.api = domains.admin
+      origins.api = origins.admin
     }
     if (!domains.admin) {
       domains.admin = domains.api
+      origins.admin = origins.api
     }
     if (!domains.cdn) {
       domains.cdn = domains.api
+      origins.cdn = origins.api
     }
 
     this.domains = domains
+    this.origins = origins
 
     this.env(this)
   }
@@ -120,9 +126,9 @@ export class Organization {
       this.data.maintenance_mode || process.env.MAINTENANCE_MODE
     ctxt.maintenance_token =
       this.data.maintenance_token || process.env.MAINTENANCE_TOKEN
-    ctxt.api_base_url = `${this.http_protocol}${this.domains.api}${this.http_port}`
-    if (this.domains.webapp) {
-      ctxt.base_url = `${this.http_protocol}${this.domains.webapp}`
+    ctxt.api_base_url = this.origins.api
+    if (this.origins.webapp) {
+      ctxt.base_url = this.origins.webapp
     } else {
       ctxt.base_url = process.env.BASE_URL
     }
@@ -165,8 +171,7 @@ export class Organization {
   }
 
   static(path) {
-    if (path && path.startsWith('/'))
-      return `${this.http_protocol}${this.domains.cdn}${this.http_port}${path}`
+    if (path && path.startsWith('/')) return `${this.origins.cdn}${path}`
     else return path
   }
   hasModule(md) {

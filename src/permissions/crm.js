@@ -96,19 +96,19 @@ register('store:change', ($org, user, obj) =>
 register('store:delete', ($org, user, obj) => false)
 
 /***************************************************/
-/*          DeliveryCompanies Model Permissions    */
+/*          ShipmentCompanies Model Permissions    */
 /***************************************************/
 
-register('delivery:view', ($org, user, obj) =>
+register('shipment-company:view', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
 
-register('delivery:add', ($org, user, obj) =>
+register('shipment-company:add', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
 
-register('delivery:change', ($org, user, obj) =>
+register('shipment-company:change', ($org, user, obj) =>
   hasRole(user, ['admin', 'manager'])
 )
 
-register('delivery:delete', ($org, user, obj) => false)
+register('shipment-company:delete', ($org, user, obj) => false)

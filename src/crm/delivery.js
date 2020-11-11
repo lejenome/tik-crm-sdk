@@ -1,16 +1,16 @@
 import BaseApi from '../core/base.js'
 
-class DeliveryCompaniesApi extends BaseApi {
+class ShipmentCompaniesApi extends BaseApi {
   constructor() {
     super()
-    this.resource = 'delivery-companies'
-    this.model_name = 'delivery'
-    this.verbose_name = 'Delivery Company'
-    this.verbose_name_plural = 'Delivery Companies'
-    this.view_perm = 'delivery:view'
-    this.add_perm = 'delivery:add'
-    this.change_perm = 'delivery:change'
-    this.delete_perm = 'delivery:delete'
+    this.resource = 'shipment-companies'
+    this.model_name = 'shipment-company'
+    this.verbose_name = 'Shipment Company'
+    this.verbose_name_plural = 'Shipment Companies'
+    this.view_perm = 'shipment-company:view'
+    this.add_perm = 'shipment-company:add'
+    this.change_perm = 'shipment-company:change'
+    this.delete_perm = 'shipment-company:delete'
     this.configCache({ list: true }, 60 * 60 * 1000)
   }
 
@@ -166,6 +166,6 @@ class DeliveryCompaniesApi extends BaseApi {
   }
 }
 
-const deliveryCompaniesApi = new DeliveryCompaniesApi()
+const api = new ShipmentCompaniesApi()
 
-export default deliveryCompaniesApi
+export default api
