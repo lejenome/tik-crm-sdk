@@ -96,8 +96,9 @@ register(
   ($org, user, obj) =>
     hasRole(user, ['admin', 'manager', 'finance', 'stock']) &&
     $org.hasDeliveryBackend('fparcel') &&
-    ['fparcel'].includes(obj.delivery_type) &&
-    ['inprogress'].includes(obj.status)
+    (!obj ||
+      (['fparcel'].includes(obj.delivery_type) &&
+        ['inprogress'].includes(obj.status)))
 )
 
 register(
@@ -105,7 +106,7 @@ register(
   ($org, user, obj) =>
     hasRole(user, ['admin', 'manager', 'finance', 'stock']) &&
     $org.hasModule('export') &&
-    ['inprogress'].includes(obj.status)
+    (!obj || ['inprogress'].includes(obj.status))
 )
 
 register(
