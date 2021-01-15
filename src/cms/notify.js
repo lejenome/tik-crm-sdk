@@ -53,7 +53,7 @@ export class NotifyApi {
     }
     console.log('Submit form...')
     form.status = 'inprogress'
-    return fetch('https://api.admin.tik.tn/feedbacks/notify', {
+    return fetch('https://api.admin.tik.website/feedbacks/notify', {
       method: 'POST',
       redirect: 'manual',
       credentials: 'omit',
