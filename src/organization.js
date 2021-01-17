@@ -1,11 +1,26 @@
 import BaseApi from './core/base'
-import { base_url } from './config'
+import {
+  base_url,
+  base_domain,
+  saas_base_url,
+  saas_base_domain,
+} from './config.js'
 
 class OrganizationApi extends BaseApi {
   constructor() {
     super()
     this.resource = 'site'
     // this.configCache({ list: true }, 60 * 60 * 1000)
+  }
+
+  get base_domain() {
+    return globalThis.tikSdkConfig.API_BASE_URL
+      ? base_domain()
+      : saas_base_domain()
+  }
+
+  get base_url() {
+    return globalThis.tikSdkConfig.API_BASE_URL ? base_url() : saas_base_url()
   }
 
   toObj(object) {
@@ -21,6 +36,21 @@ class OrganizationApi extends BaseApi {
     delete object.background_image_file
     return object
   }
+
+  async get() {
+    const obj = await this.list()
+    return this.toObj(obj)
+  }
+
+  async get_by_domain(domain) {
+    const obj = await this.http('GET', domain)
+    return this.toObj(obj)
+  }
+
+  async get_by_referer() {
+    const obj = await this.http('GET', 'hostname')
+    return this.toObj(obj)
+  }
 }
 
 export const organizationApi = new OrganizationApi()
@@ -33,7 +63,21 @@ export class Organization {
   }
 
   async refresh() {
-    const data = await organizationApi.list()
+    const data = await organizationApi.get()
+    if (data) {
+      this.apply(data)
+    }
+  }
+
+  async refresh_by_domain(domain) {
+    const data = await organizationApi.get_by_domain(domain)
+    if (data) {
+      this.apply(data)
+    }
+  }
+
+  async refresh_by_referer() {
+    const data = await organizationApi.get_by_referer()
     if (data) {
       this.apply(data)
     }
@@ -41,9 +85,6 @@ export class Organization {
 
   apply(data) {
     this.data = data
-    const $base_url = new URL(base_url())
-    this.http_protocol = ($base_url.protocol || 'https:') + '//'
-    this.http_port = $base_url.port ? `:${$base_url.port}` : ''
     const domains = {}
     const origins = {}
     for (const domain of data.domains) {
@@ -65,6 +106,10 @@ export class Organization {
 
     this.domains = domains
     this.origins = origins
+
+    const $base_url = new URL(this.origins.api)
+    this.http_protocol = ($base_url.protocol || 'https:') + '//'
+    this.http_port = $base_url.port ? `:${$base_url.port}` : ''
 
     this.env(this)
   }

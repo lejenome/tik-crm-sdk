@@ -3,6 +3,8 @@ export {
   setConfigOrganization,
   base_url,
   base_domain,
+  saas_base_url,
+  saas_base_domain,
   default as config,
 } from './config.js'
 export { default as organization } from './organization.js'
