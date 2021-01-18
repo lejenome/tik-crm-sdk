@@ -104,12 +104,16 @@ class BaseApi {
     } else {
       json = undefined
     }
-    console.log(method, path, json || '')
+    if (globalThis.extendedTracing) {
+      console.log('HTTP', method, url, json || '')
+    } else {
+      console.log(method, path, json || '')
+    }
     try {
       if (this.session.authToken) {
         headers.Authorization = 'Bearer ' + this.session.authToken
       }
-      req = await fetch(url, {
+      req = await globalThis.fetch(url, {
         method,
         headers,
         body: json,
@@ -134,7 +138,6 @@ class BaseApi {
         JSON.stringify(json),
         req && req.status
       )
-      console.log('Sentry', typeof Sentry, Sentry, Object.keys(Sentry))
       if (typeof Sentry === 'object' && 'captureException' in Sentry) {
         Sentry.captureException(e)
       }

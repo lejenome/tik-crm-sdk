@@ -2,6 +2,7 @@ import { version } from '../package.json'
 
 const DEFAULT_CONFIG = {
   // env: 'production',
+  FETCH_MODE: 'API_BASE_URL', // 'REFERER', 'DOMAIN',
   API_BASE_URL: '',
   SAAS_API_BASE_URL: '',
   API_PREFIX: '/api/',
