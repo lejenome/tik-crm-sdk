@@ -27,13 +27,45 @@ class OrganizationApi extends BaseApi {
     if (!object.attrs) {
       object.attrs = {}
     }
+    if (!object.config_attrs) {
+      object.config_attrs = {}
+    }
+    if (!object.permissions) {
+      object.permissions = []
+    }
     if (!object.payment_providers) {
       object.payment_providers = []
     }
-    object._phone = object.phone
     delete object.cover_file
     delete object.picture_file
     delete object.background_image_file
+
+    const domains = {}
+    const origins = {}
+    for (const domain of object.domains) {
+      domains[domain.type] = domain.domain
+      origins[domain.type] = domain.origin
+    }
+    if (!domains.api) {
+      domains.api = domains.admin
+      origins.api = origins.admin
+    }
+    if (!domains.admin) {
+      domains.admin = domains.api
+      origins.admin = origins.api
+    }
+    if (!domains.cdn) {
+      domains.cdn = domains.api
+      origins.cdn = origins.api
+    }
+
+    object.$domains = domains
+    object.$origins = origins
+
+    const $base_url = new URL(object.$origins.api)
+    object.http_protocol = ($base_url.protocol || 'https:') + '//'
+    object.http_port = $base_url.port ? `:${$base_url.port}` : ''
+
     return object
   }
 
@@ -84,33 +116,10 @@ export class Organization {
   }
 
   apply(data) {
+    data = organizationApi.toObj(data)
     this.data = data
-    const domains = {}
-    const origins = {}
-    for (const domain of data.domains) {
-      domains[domain.type] = domain.domain
-      origins[domain.type] = domain.origin
-    }
-    if (!domains.api) {
-      domains.api = domains.admin
-      origins.api = origins.admin
-    }
-    if (!domains.admin) {
-      domains.admin = domains.api
-      origins.admin = origins.api
-    }
-    if (!domains.cdn) {
-      domains.cdn = domains.api
-      origins.cdn = origins.api
-    }
-
-    this.domains = domains
-    this.origins = origins
-
-    const $base_url = new URL(this.origins.api)
-    this.http_protocol = ($base_url.protocol || 'https:') + '//'
-    this.http_port = $base_url.port ? `:${$base_url.port}` : ''
-
+    this.domains = data.$domains
+    this.origins = data.$origins
     this.env(this)
   }
 
@@ -171,9 +180,9 @@ export class Organization {
       this.data.maintenance_mode || process.env.MAINTENANCE_MODE
     ctxt.maintenance_token =
       this.data.maintenance_token || process.env.MAINTENANCE_TOKEN
-    ctxt.api_base_url = this.origins.api
-    if (this.origins.webapp) {
-      ctxt.base_url = this.origins.webapp
+    ctxt.api_base_url = this.data.$origins.api
+    if (this.data.$origins.webapp) {
+      ctxt.base_url = this.data.$origins.webapp
     } else {
       ctxt.base_url = process.env.BASE_URL
     }
@@ -216,7 +225,7 @@ export class Organization {
   }
 
   static(path) {
-    if (path && path.startsWith('/')) return `${this.origins.cdn}${path}`
+    if (path && path.startsWith('/')) return `${this.data.$origins.cdn}${path}`
     else return path
   }
   hasModule(md) {
