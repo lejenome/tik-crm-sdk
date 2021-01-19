@@ -169,8 +169,10 @@ export class Organization {
     ctxt.phone = this.data.phone
     ctxt.slug = this.data.slug
     ctxt.cache_prefix = this.data.slug
+    ctxt.summary = this.data.summary
     ctxt.about_us = this.data.summary
     ctxt.about_us_fr = this.data.summary
+    ctxt.facebook_url = this.data.facebook_url
     ctxt.fb_url = this.data.facebook_url
     ctxt.twitter_url = this.data.twitter_url
     ctxt.youtube_url = this.data.youtube_url
@@ -179,6 +181,9 @@ export class Organization {
     ctxt.wiretransfer = this.data.wiretransfer
     ctxt.mandat = this.data.mandat
     ctxt.payment_providers = this.data.payment_providers
+    ctxt.attrs = this.data.attrs
+    ctxt.config_attrs = this.data.config_attrs
+    ctxt.permissions = this.data.permissions
     ctxt.default_currency = this.data.default_currency
     ctxt.tax_rate = this.data.tax_rate
     ctxt.tax_stamp = this.data.tax_stamp
