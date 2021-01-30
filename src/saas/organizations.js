@@ -31,6 +31,11 @@ export class OrganizationsApi extends SaasApiMixin(TenantOrganizationApi) {
     })
     return res
   }
+
+  async subscriptions(id) {
+    const res = await this.http('GET', `${id}/subscriptions`)
+    return res
+  }
 }
 
 const api = new OrganizationsApi()
